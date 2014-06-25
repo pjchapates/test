@@ -1,0 +1,19 @@
+﻿<Window x:Class="guiTest.EventLog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="EventLog" Height="350" Width="200" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="Manual" 
+        Left="305.5" Top="237.5" Loaded="Window_Loaded" Background="Transparent">
+    <Grid Background="#009999">
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="Grid.Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetProperty="Opacity" To="1" From="0" Duration="0:0:.5"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
+        <ListBox x:Name="events" HorizontalAlignment="Center" VerticalAlignment="Center" Height="340" Width="190" Background="White" Foreground="#616161"
+                 FontFamily="Exo 2.0" FontSize="16" FontWeight="Thin"/>
+    </Grid>
+</Window>

@@ -1,0 +1,120 @@
+﻿<Window x:Class="guiTest.MainWindow"
+        x:Name="windowMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="450" Width="725" Loaded="Window_Loaded_1" WindowStyle="None" BorderThickness="0" 
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid x:Name="Kinect1" Width="725" Height="450" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0">
+        <!--the stack panel for the kinect image-->
+        <Grid x:Name="panelStuff2" Height="450" Width="725" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" Background="#009999">
+            <Image x:Name="kinectImage" HorizontalAlignment="Left" VerticalAlignment="Top" Height="450" Width="725" Stretch="Fill">
+                <!--The animation handler for fading in the camera image-->
+                <Image.Triggers>
+                    <EventTrigger RoutedEvent="Image.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetName="kinectImage" Storyboard.TargetProperty="Opacity" Duration="0:0:3" BeginTime="0:0:1" To="1" From="0"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Image.Triggers>
+            </Image>
+            <Image x:Name="logo" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="38" Width="200" Margin="0,0,0,0" Source="PhysmodoLogo.png"
+                   ToolTip="Physmodo 2014 All Rights Reserved"/>
+        </Grid>
+        <!-- stack panel for the gui stuff (right now just the kinect selector)-->
+        <Grid x:Name="gui" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" Height="450" Width="725" Background="Transparent">
+            <ComboBox x:Name="kinectChooser" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,0,0,0" Height="25" Width="120" Opacity="0"
+                      Background="White" Foreground="#009999" FontWeight="Thin" BorderBrush="#009999" SelectedIndex="0" 
+                      SelectionChanged="kinectChooser_SelectionChanged" IsEnabled="False" Visibility="Hidden">
+                <ComboBox.Triggers>
+                    <EventTrigger RoutedEvent="ComboBox.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetName="kinectChooser" Storyboard.TargetProperty="Opacity" Duration="0:0:2" From="0" To="0.8" BeginTime="0:0:3"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </ComboBox.Triggers>
+            </ComboBox>
+            <TextBlock x:Name="roomDisp" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1,1,0,0" FontFamily="#Exo2.0-Thin"
+                       Text="Room 2000" FontSize="20" Foreground="White" FontWeight="Thin"/>
+            <TextBlock x:Name="time" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1,20,0,0" FontFamily="#Exo2.0-Thin"
+                       Text="ASD" FontSize="20" Foreground="White" FontWeight="Thin"/>
+            <Button x:Name="Options" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,0" Height="30" Width="90" Content="Options"
+                    Background="#E5616161" Foreground="#009999" FontWeight="Thin" FontSize="20" Click="Options_Click" Opacity="0" FontFamily="#Exo2.0-Thin">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="Button.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetName="Options" Storyboard.TargetProperty="Opacity" Duration="0:0:2" From="0" To="1" BeginTime="0:0:3"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="Button.Click">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetName="Move" Storyboard.TargetProperty="Y" Duration="0:0:.5" To="0" From="400"/>
+                                <DoubleAnimation Storyboard.TargetName="Move" Storyboard.TargetProperty="Y" Duration="0:0:.1" BeginTime="0:0:.5" To="20" From="0"/>
+                                <DoubleAnimation Storyboard.TargetName="Move" Storyboard.TargetProperty="Y" Duration="0:0:.1" BeginTime="0:0:.6" To="0" From="20"/>
+                                <DoubleAnimation Storyboard.TargetName="Move" Storyboard.TargetProperty="Y" Duration="0:0:.1" BeginTime="0:0:.7" To="10" From="0"/>
+                                <DoubleAnimation Storyboard.TargetName="Move" Storyboard.TargetProperty="Y" Duration="0:0:.1" BeginTime="0:0:.8" To="0" From="10"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+        </Grid>
+        <!--stack panel for the options, add all things for the option here-->
+        <StackPanel x:Name="OptionsWindow" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,0,0" Height="450" Width="200" 
+                    Background="#B2009999" IsEnabled="False" Visibility="Hidden">
+            <StackPanel.RenderTransform>
+                <TranslateTransform x:Name="Move"/>
+            </StackPanel.RenderTransform>
+            <TextBlock x:Name="PatientName" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" Foreground="White" Text="Austin Graham"
+                       FontSize="20" FontWeight="Thin" FontFamily="#Exo2.0-Thin"/>
+            <TextBlock x:Name="RoomNumber" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0" Foreground="White" Text="Room 1234"
+                       FontSize="18" FontWeight="Thin" FontFamily="#Exo2.0-Thin"/>
+            <Rectangle Height="1" Width="350" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0" Fill="White"/>
+            <CheckBox x:Name="drawSkeleton" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,5,0,0" Foreground="White" Content="Draw Skeleton Position"
+                      FontFamily="#Exo2.0-Thin" FontSize="12" FontWeight="Thin" />
+            <CheckBox x:Name="drawCoords" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,0,0,0" Foreground="White" Content="Draw Joint Positions"
+                      FontFamily="#Exo2.0-Thin" FontSize="12" FontWeight="Thin" />
+            <CheckBox x:Name="dispLog" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,0,0,0" Foreground="White" Content="Show Alert Log"
+                      FontFamily="#Exo2.0-Thin" FontSize="12" FontWeight="Thin" Checked="dispLog_Checked" Unchecked="dispLog_Unchecked" />
+            <CheckBox x:Name="dispAlerts" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,0,0,0" Foreground="White" Content="Display Alerts"
+                      FontFamily="#Exo2.0-Thin" FontSize="12" FontWeight="Thin" />
+            <Rectangle Height="1" Width="350" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0" Fill="White"/>
+            <TextBlock x:Name="name" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,0,0,0" Foreground="White" Text="Patient Name" FontFamily="#Exo2.0-Thin"
+                       FontSize="16" FontWeight="Thin"/>
+            <TextBox x:Name="nameEdit" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,0,0,0" Background="White" Foreground="#009999"
+                     Text="Austin Graham" Height="17" Width="90" FontFamily="#Exo2.0-Thin"/>
+            <TextBlock x:Name="room" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,5,0,0" Foreground="White" Text="Room Number" FontFamily="#Exo2.0-Thin"
+                       FontSize="16" FontWeight="Thin"/>
+            <TextBox x:Name="roomEdit" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,0,0,0" Background="White" Foreground="#009999"
+                     Text="1234" Height="17" Width="35" FontFamily="#Exo2.0-Thin"/>
+            <Button x:Name="Update" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0" Background="#E5616161" Foreground="White"
+                    Content="Update Patient Info" Height="20" Width="140" Click="Update_Click" FontFamily="#Exo2.0-Thin"/>
+            <Rectangle Height="1" Width="350" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0" Fill="White"/>
+            <TextBlock Text="Privacy Mode" Foreground="White" FontFamily="#Exo2.0-Thin" FontSize="12" FontWeight="Thin"
+                           HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,5,0,0"/>
+            <ComboBox x:Name="privacyMode" Height="20" Width="90" HorizontalAlignment="Left" VerticalAlignment="Top" Background="White"
+                          Foreground="#009999" Margin="30,5,0,0" />
+            <Rectangle Height="1" Width="350" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0" Fill="White"/>
+            <Button x:Name="close" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0" Background="White" Foreground="Red"
+                    Content="Exit Program" Height="30" Width="120" FontFamily="#Exo2.0-Thin" FontSize="16" FontWeight="Thin" Click="close_Click"/>
+            <Button x:Name="cancel" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0" Background="White" Foreground="#009999" 
+                    Content="Hide Options" Height="30" Width="140" FontFamily="#Exo2.0-Thin" FontSize="20" FontWeight="Thin" Click="cancel_Click">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="Button.Click">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetName="Move" Storyboard.TargetProperty="Y" Duration="0:0:.5" To="500" From="0"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>
